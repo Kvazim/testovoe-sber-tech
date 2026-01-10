@@ -1,7 +1,6 @@
-import { useEffect, useRef, KeyboardEvent, ChangeEvent } from "react";
+import { useRef, KeyboardEvent, ChangeEvent } from "react";
 import style from "./style.module.css";
 import { useFocusOpen } from "./hooks/useFocusOpen";
-import { on } from "cluster";
 import { useCloseOnEscapeOrOutside } from "./hooks/use-close-on-escape-or-outside";
 
 type SelectControlProps = {
