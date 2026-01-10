@@ -1,8 +1,9 @@
-import { useState, KeyboardEvent, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { OptionData } from "@client/types/option-data";
 
 import style from "./style.module.css";
+import { SelectControl } from "../select-control/select-control";
 
 type CustomSelectProps = {
   options: OptionData;
@@ -14,63 +15,17 @@ function CustomSelect({ options }: CustomSelectProps) {
   const [isActiveIndex, setIsActiveIndex] = useState<number | null>(null);
 
   const selectRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const optionRef = useRef<HTMLDivElement>(null);
 
-  const handleOpenSelect = () => {
-    setIsOpen(true);
-  };
-
-  const handleCloseSelect = () => {
-    setIsOpen(false);
-  };
-
-  const handleToogleSelect = () => {
-    isOpen ? handleCloseSelect() : handleOpenSelect();
-  };
+  const handleClear = () => {
+    setQuery('');
+    setIsActiveIndex(null);
+  }
 
   const getSelectedIndex = () => {
     const index = options.findIndex(({value}) => value === query);
     return index >= 0 ? index : null;
   };
-
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    } else if (!isOpen && selectRef.current) {
-      selectRef.current.blur();
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    const handlerClickEscape = (event: globalThis.KeyboardEvent) => {
-      if (event.key === "Escape") {
-        handleCloseSelect();
-      }
-    };
-
-    document.addEventListener("keydown", handlerClickEscape);
-
-    return () => {
-      document.removeEventListener("keydown", handlerClickEscape);
-    };
-  });
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-
-      if (selectRef.current && !selectRef.current.contains(target)) {
-        handleCloseSelect();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -106,7 +61,7 @@ function CustomSelect({ options }: CustomSelectProps) {
         if (isActiveIndex !== null) {
           setQuery(options[isActiveIndex].value);
           setIsActiveIndex(null);
-          handleCloseSelect();
+          setIsOpen(false);
         }
       }
     }
@@ -117,26 +72,6 @@ function CustomSelect({ options }: CustomSelectProps) {
       document.removeEventListener("keydown", handleKeyDownArrow);
     };
   }, [isOpen, options.length, isActiveIndex]);
-
-  const handleClear = () => {
-    setQuery('');
-    setIsActiveIndex(null);
-  }
-
-  const handleClearKeyDown = (evt: KeyboardEvent<HTMLSpanElement>) => {
-    if (evt.key === "Enter") {
-      evt.preventDefault();
-      handleClear();
-    }
-  };
-
-  const handleOpenSelectKeyDown = (evt: KeyboardEvent<HTMLSpanElement>) => {
-    if (evt.key === "Enter") {
-      evt.preventDefault();
-
-      handleToogleSelect();
-    }
-  };
 
   const getItemKey = useCallback(
     (index: number) => options[index].name,
@@ -166,35 +101,16 @@ function CustomSelect({ options }: CustomSelectProps) {
   return (
     <div
       ref={selectRef}
-      className={`${style.select} ${isOpen ? style.open : ''}`}
+      className={style.select}
     >
-      <div className={style.selectControl}>
-        <input
-          ref={inputRef}
-          type="text"
-          name="select"
-          value={query}
-          tabIndex={-1}
-          autoComplete="off"
-          onChange={(e) => setQuery(e.target.value)}
-          onClick={handleOpenSelect}
-        />
-        {
-          query &&
-          <span
-            className={style.clear}
-            tabIndex={0}
-            onClick={handleClear}
-            onKeyDown={handleClearKeyDown}
-          />
-        }
-        <span
-          className={`${style.arrow} ${isOpen ? style.open : ''}`}
-          tabIndex={0}
-          onClick={handleToogleSelect}
-          onKeyDown={handleOpenSelectKeyDown}
-        />
-      </div>
+      <SelectControl 
+        isOpen={isOpen} 
+        onChangeOpen={setIsOpen} 
+        inputValue={query} 
+        onChangeInput={setQuery} 
+        rootContains={selectRef.current} 
+        onClearInput={handleClear} 
+      />
       <div className={`${style.options} ${isOpen ? '' : style.visuallyHidden}`} ref={optionRef}>
         <ul
           className={style.optionsList}
