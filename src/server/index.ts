@@ -4,8 +4,6 @@ import { generateOptions } from '@lib/utils/utils';
 
 const PORT = process.env.PORT || 5000;
 
-const options = generateOptions();
-
 function setCors(res: http.ServerResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -22,9 +20,16 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.method === 'GET' && req.url === ROUTES.OPTIONS) {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(options));
-    return;
+    try {
+      const options = generateOptions();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(options));
+      return;
+    } catch (error) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: 'Внутренняя ошибка сервера' }));
+      return;
+    }
   }
 
   if (req.method === 'POST' && req.url === ROUTES.SELECTED) {

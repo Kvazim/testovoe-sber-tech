@@ -28,9 +28,9 @@ function useKeyboardNavigation({ options, query, isOpen, onChangeActiveIndex, ac
             return direction === "down" ? 0 : options.length - 1;
           } else {
             if (direction === "down") {
-              return selectedIndex >= options.length - 1 ? 0 : selectedIndex + 1;
+              return selectedIndex >= options.length - 1 ? selectedIndex : selectedIndex + 1;
             } else {
-              return selectedIndex <= 0 ? options.length - 1 : selectedIndex - 1;
+              return selectedIndex <= 0 ? selectedIndex : selectedIndex - 1;
             }
           }
         });

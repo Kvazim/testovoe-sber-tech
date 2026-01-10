@@ -31,7 +31,9 @@ function OptionList({ options, isActiveIndex, query, isOpen }: OptionListProps) 
       >
         {
           rowVirtualizer.getVirtualItems().map((virtualRow) => {
-            const item = options[virtualRow.index];
+            const { name, value } = options[virtualRow.index];
+
+            if (!!name && !!value)
 
             return (
               <li
@@ -40,10 +42,10 @@ function OptionList({ options, isActiveIndex, query, isOpen }: OptionListProps) 
                 style={{
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
-                key={item.name}
-                className={`${style.optionsItem} ${isActiveIndex === virtualRow.index ? style.hover : ''} ${query === item.value ? style.selected : ''}`}
+                key={name}
+                className={`${style.optionsItem} ${isActiveIndex === virtualRow.index ? style.hover : ''} ${query === value ? style.selected : ''}`}
               >
-                {item.value}
+                {value}
               </li>
             );
           })
