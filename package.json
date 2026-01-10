@@ -1,0 +1,48 @@
+{
+  "name": "testovoe-sber",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Kvazim",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev:client": "webpack serve --config webpack.config.js --config-name client",
+    "dev:server": "nodemon --watch src/server --exec \"webpack --config webpack.config.js --config-name server && node dist/server/index.js\"",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
+    "@tanstack/react-virtual": "^3.13.18",
+    "concurrently": "^9.2.1",
+    "cors": "^2.8.5",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-redux": "^9.2.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-redux": "^7.1.34",
+    "@typescript-eslint/eslint-plugin": "^8.51.0",
+    "@typescript-eslint/parser": "^8.51.0",
+    "cross-env": "^10.1.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "fork-ts-checker-webpack-plugin": "^9.1.0",
+    "html-webpack-plugin": "^5.6.5",
+    "nodemon": "^3.1.11",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.3",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2",
+    "webpack-merge": "^6.0.1"
+  }
+}
