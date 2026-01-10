@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import { useVirtualizer } from "@tanstack/react-virtual";
+import { useState, useRef, useMemo } from "react";
 import { OptionData } from "@client/types/option-data";
 
 import style from "./style.module.css";
