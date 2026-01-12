@@ -1,7 +1,7 @@
-import { OptionData } from "@client/types/option-data";
+import { OptionDataWithId } from "@client/types/option-data";
 import { Dispatch, SetStateAction, useEffect } from "react";
 type UseKeyboardNavigationProps = {
-  options: OptionData;
+  options: OptionDataWithId;
   query: string;
   isOpen: boolean;
   onChangeActiveIndex: Dispatch<SetStateAction<number | null>>;

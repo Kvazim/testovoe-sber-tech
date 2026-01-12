@@ -1,11 +1,20 @@
 export type Option = {
-  id?: string;
-  name: string;
-  value: string;
+  name: string | null | undefined;
+  value: string | null | undefined;
 };
 
 export type OptionData = Option[];
 
-export type OptionWithId = Omit<Option, 'id'> & { id: string };
+export type OptionWithId = {
+  id: string;
+  name: string;
+  value: string;
+};
 
 export type OptionDataWithId = OptionWithId[];
+
+export type ServerError = {
+  data: {
+    message: string;
+  };
+};

@@ -1,19 +1,26 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { selectedSelector } from "./selected-api";
-import { Option } from "@client/types/option-data";
+import { Option, OptionWithId } from "@client/types/option-data";
 import { v4 } from "uuid";
+import { selectedSelector } from "./get-selected-data-api";
 
 export const selectAdaptData = createSelector(
   selectedSelector,
-  (data) => {
-    if (data.isSuccess) {
-      const adaptedData = data.data.filter(({ name, value }: Option) => name && value).map((item: Option) => {
-        if (!item.id) {
-          return {
-            ...item,
-            id: v4(),
-          };
-        }
+  (optionsData) => {
+    if (optionsData.isSuccess) {
+      const { data } = optionsData;
+      const filteredData = data.filter((item): item is Option & {
+        name: string;
+        value: string
+      } => !!item.name?.trim() && !!item.value?.trim());
+
+      const adaptedData = filteredData.map(({value, name}): OptionWithId => {
+        const id = v4();
+
+        return {
+          id,
+          name: name,
+          value: value
+        };
       });
 
       return adaptedData;

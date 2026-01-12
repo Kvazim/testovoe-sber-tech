@@ -1,6 +1,15 @@
-function UiMessage() {
+import { HTMLAttributes, ReactNode } from "react";
+
+type UiMessageOwnProps = {
+  children: ReactNode;
+}
+
+type UiMessageProps = UiMessageOwnProps &
+  Omit<HTMLAttributes<HTMLParagraphElement>, keyof UiMessageOwnProps>;
+
+function UiMessage({children, ...props}: UiMessageProps) {
   return (
-    <p>Какойто меседж</p>
+    <p {...props}>{children}</p>
   );
 }
 

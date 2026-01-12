@@ -1,0 +1,29 @@
+.button {
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border: none;
+  outline: 1px solid #0066cc;
+  border-radius: 2px;
+  color: #0066cc;
+  font-size: 14px;
+}
+
+.button:hover,
+.button:focus {
+  outline-width: 2px;
+}
+
+.button[aria-disabled="true"] {
+  pointer-events: none;
+  outline-color: #999999;
+  color: #999999;
+}
+
+.button[aria-disabled="true"]:hover,
+.button[aria-disabled="true"]:focus {
+  outline-width: 1px;
+}
+
