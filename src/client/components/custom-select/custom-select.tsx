@@ -1,10 +1,13 @@
 import { useState, useRef, useMemo, Dispatch, SetStateAction } from "react";
 import { OptionDataWithId } from "@client/types/option-data";
-
-import style from "./style.module.css";
 import { SelectControl } from "../select-control/select-control";
 import { OptionList } from "../option-list/option-list";
 import { useKeyboardNavigation } from "./hooks/use-keyboard-navigation";
+import { DIRECTION_SELECT } from "@lib/const/const";
+import { DirectionSelect } from "@client/types/direction";
+import { useDirectionOptionList } from "./hooks/use-direction-option-list";
+
+import style from "./style.module.css";
 
 type CustomSelectProps = {
   options: OptionDataWithId;
@@ -14,6 +17,7 @@ type CustomSelectProps = {
 
 function CustomSelect({ options, selectedValue: query, setSelectedValue: setQuery }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [direction, setDirection] = useState<DirectionSelect>(DIRECTION_SELECT.DOWN);
   const [isActiveIndex, setIsActiveIndex] = useState<number | null>(null);
 
   const selectRef = useRef<HTMLDivElement>(null);
@@ -35,10 +39,12 @@ function CustomSelect({ options, selectedValue: query, setSelectedValue: setQuer
     onChangeOpen: setIsOpen
   });
 
+  useDirectionOptionList({ isOpen, selectRef, setDirection });
+
   return (
     <div
       ref={selectRef}
-      className={style.select}
+      className={`${style.select} ${direction === DIRECTION_SELECT.UP ? style.up : style.down}`}
     >
       <SelectControl 
         isOpen={isOpen} 

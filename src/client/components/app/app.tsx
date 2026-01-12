@@ -1,6 +1,5 @@
 import style from "./app.module.css";
-import { CustomSelect } from "../custom-select/custom-select";
-import { CustomButton } from "../custom-button/custom-button";
+
 import { UiMessage } from "../ui-message/ui-message";
 import { Loading } from "../loading/loading";
 import { useGetSelectedOptionsQuery } from "../../../lib/api/selected-api";
@@ -14,6 +13,12 @@ function App() {
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (selected.length === 0) {
+    return (
+      <div className={style.container}>Нет данных для отображения</div>
+    )
   }
 
   return (

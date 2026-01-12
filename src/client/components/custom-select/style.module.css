@@ -1,8 +1,17 @@
 .select {
+  display: flex;
   width: 250px;
   position: relative;
   font-family: sans-serif;
   outline: none;
+}
+
+.up{
+  flex-direction: column-reverse;
+}
+
+.down{
+  flex-direction: column;
 }
 
 .select input {
