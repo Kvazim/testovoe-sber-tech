@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, Dispatch, SetStateAction } from "react";
 import { OptionDataWithId } from "@client/types/option-data";
 
 import style from "./style.module.css";
@@ -8,10 +8,11 @@ import { useKeyboardNavigation } from "./hooks/use-keyboard-navigation";
 
 type CustomSelectProps = {
   options: OptionDataWithId;
+  selectedValue: string;
+  setSelectedValue: Dispatch<SetStateAction<string>>;
 }
 
-function CustomSelect({ options }: CustomSelectProps) {
-  const [query, setQuery] = useState('');
+function CustomSelect({ options, selectedValue: query, setSelectedValue: setQuery }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isActiveIndex, setIsActiveIndex] = useState<number | null>(null);
 

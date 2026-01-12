@@ -6,6 +6,7 @@ import { Loading } from "../loading/loading";
 import { useGetSelectedOptionsQuery } from "../../../lib/api/selected-api";
 import { useAppSelector } from "@lib/redux/redux";
 import { selectAdaptData } from "@lib/api/select-adapt-data";
+import { OptionsForm } from "../options-form/options-form";
 
 function App() {
   const { isLoading } = useGetSelectedOptionsQuery(undefined);
@@ -14,11 +15,10 @@ function App() {
   if (isLoading) {
     return <Loading />;
   }
-  
+
   return (
     <div className={style.container}>
-      <CustomSelect options={selected} />
-      <CustomButton />
+      <OptionsForm options={selected} />
       <UiMessage />
     </div>
   );

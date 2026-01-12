@@ -1,6 +1,6 @@
 function CustomButton () {
   return (
-    <div>я будущая кнопка</div>
+    <div >я будущая кнопка</div>
   );
 }
 
