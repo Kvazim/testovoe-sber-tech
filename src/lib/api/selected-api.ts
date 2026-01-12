@@ -15,3 +15,5 @@ reducer.inject(selectedApi);
 addAppMiddleware(selectedApi.middleware);
 
 export const { useGetSelectedOptionsQuery } = selectedApi;
+
+export const selectedSelector = selectedApi.endpoints.getSelectedOptions.select(undefined);

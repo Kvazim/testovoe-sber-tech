@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo } from "react";
-import { OptionData } from "@client/types/option-data";
+import { OptionDataWithId } from "@client/types/option-data";
 
 import style from "./style.module.css";
 import { SelectControl } from "../select-control/select-control";
@@ -7,7 +7,7 @@ import { OptionList } from "../option-list/option-list";
 import { useKeyboardNavigation } from "./hooks/use-keyboard-navigation";
 
 type CustomSelectProps = {
-  options: OptionData;
+  options: OptionDataWithId;
 }
 
 function CustomSelect({ options }: CustomSelectProps) {

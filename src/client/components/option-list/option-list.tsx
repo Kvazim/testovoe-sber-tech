@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import style from "./style.module.css";
-import { OptionData } from "@client/types/option-data";
+import { OptionDataWithId } from "@client/types/option-data";
 import { useVirtualOptions } from "./hooks/use-virtual-options";
 import { useScrollToActive } from "./hooks/use-scroll-to-active";
 
 type OptionListProps = {
-  options: OptionData;
+  options: OptionDataWithId;
   isActiveIndex: number | null;
   query: string;
   isOpen: boolean;
@@ -31,9 +31,7 @@ function OptionList({ options, isActiveIndex, query, isOpen }: OptionListProps) 
       >
         {
           rowVirtualizer.getVirtualItems().map((virtualRow) => {
-            const { name, value } = options[virtualRow.index];
-
-            if (!!name && !!value)
+            const { id, name, value } = options[virtualRow.index];
 
             return (
               <li
@@ -42,7 +40,7 @@ function OptionList({ options, isActiveIndex, query, isOpen }: OptionListProps) 
                 style={{
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
-                key={name}
+                key={id}
                 className={`${style.optionsItem} ${isActiveIndex === virtualRow.index ? style.hover : ''} ${query === value ? style.selected : ''}`}
               >
                 {value}

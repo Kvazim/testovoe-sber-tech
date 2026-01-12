@@ -6,21 +6,22 @@
   "author": "Kvazim",
   "type": "commonjs",
   "main": "index.js",
-    "scripts": {
-      "dev:server:build": "webpack --config webpack.config.js --config-name server",
-      "dev:server:watch": "nodemon --watch src/server --exec \"npm run dev:server:build && node dist/server/index.js\"",
-      "dev:client": "webpack serve --config webpack.config.js --config-name client",
-      "dev": "run-s dev:server:build dev:parallel",
-      "dev:parallel": "run-p dev:server:watch dev:client",
-      "build": "cross-env NODE_ENV=production webpack --config webpack.config.js"
-    },
+  "scripts": {
+    "dev:server:build": "webpack --config webpack.config.js --config-name server",
+    "dev:server:watch": "nodemon --watch src/server --exec \"npm run dev:server:build && node dist/server/index.js\"",
+    "dev:client": "webpack serve --config webpack.config.js --config-name client",
+    "dev": "run-s dev:server:build dev:parallel",
+    "dev:parallel": "run-p dev:server:watch dev:client",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "@tanstack/react-virtual": "^3.13.18",
     "cors": "^2.8.5",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
