@@ -39,8 +39,12 @@ function CustomButton({ type=BUTTON_TYPES.BUTTON, disabled=false, form, onClick,
 
     onClick?.(evt);
   }
-      // TODO доработать обработчик клавиш enter
+
   const handleButtonKeyDownClick: KeyboardEventHandler<HTMLDivElement> = (evt) => {
+    if (evt.key === "Enter" || evt.key === ' ') {
+      btnRef.current?.click();
+    }
+
     onKeyDown?.(evt)
   }
 

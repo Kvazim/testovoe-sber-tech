@@ -21,6 +21,8 @@ function OptionsForm({ options, onErrorMessage, onSuccesMessage }: OptionsFormPr
   const handleSubmitForm = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
+    if (!selectedValue) return;
+
     try {
       const { message } = await addSelectedOption({
         value: selectedValue,
