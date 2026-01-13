@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo, Dispatch, SetStateAction } from "react";
-import { OptionDataWithId } from "@client/types/option-data";
+import { OptionDataWithId, OptionWithId } from "@client/types/option-data";
 import { SelectControl } from "../select-control/select-control";
 import { OptionList } from "../option-list/option-list";
 import { useKeyboardNavigation } from "./hooks/use-keyboard-navigation";
@@ -41,6 +41,12 @@ function CustomSelect({ options, selectedValue: query, setSelectedValue: setQuer
 
   useDirectionOptionList({ isOpen, selectRef, setDirection });
 
+  const handleOptionItemClick = (value: OptionWithId['value']) => {
+    setQuery(value);
+    setIsActiveIndex(null);
+    setIsOpen(false);
+  }
+
   return (
     <div
       ref={selectRef}
@@ -59,6 +65,7 @@ function CustomSelect({ options, selectedValue: query, setSelectedValue: setQuer
         options={filteredOptions} 
         isActiveIndex={isActiveIndex} 
         query={query} 
+        handleOptionItemClick={handleOptionItemClick}
       />
     </div>
   );

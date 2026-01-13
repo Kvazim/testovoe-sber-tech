@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import style from "./style.module.css";
-import { OptionDataWithId } from "@client/types/option-data";
+import { OptionDataWithId, OptionWithId } from "@client/types/option-data";
 import { useVirtualOptions } from "./hooks/use-virtual-options";
 import { useScrollToActive } from "./hooks/use-scroll-to-active";
 
@@ -9,9 +9,10 @@ type OptionListProps = {
   isActiveIndex: number | null;
   query: string;
   isOpen: boolean;
+  handleOptionItemClick: (value: OptionWithId['value']) => void;
 }
 
-function OptionList({ options, isActiveIndex, query, isOpen }: OptionListProps) {
+function OptionList({ options, isActiveIndex, query, isOpen, handleOptionItemClick }: OptionListProps) {
   const optionRef = useRef<HTMLDivElement>(null);
 
   const { rowVirtualizer } = useVirtualOptions(options, optionRef);
@@ -41,7 +42,9 @@ function OptionList({ options, isActiveIndex, query, isOpen }: OptionListProps) 
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
                 key={id}
+                data-name={name}
                 className={`${style.optionsItem} ${isActiveIndex === virtualRow.index ? style.hover : ''} ${query === value ? style.selected : ''}`}
+                onClick={() => handleOptionItemClick(value)}
               >
                 {value}
               </li>
