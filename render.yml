@@ -1,0 +1,28 @@
+# render.yaml
+services:
+  - type: web
+    name: testovoe-sber-tech-server
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: node dist/server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+    buildFilter:
+      includedPaths:
+        - "src/server/**"
+        - "webpack.config.js"
+        - "package*.json"
+        - "tsconfig.json"
+
+  - type: static
+    name: testovoe-sber-tech-client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist/client
+    buildFilter:
+      includedPaths:
+        - "src/client/**"
+        - "public/**"
+        - "webpack.config.js"
+        - "package*.json"
+        - "tsconfig.json"
