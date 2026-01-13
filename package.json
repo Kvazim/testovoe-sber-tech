@@ -7,11 +7,10 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev:server:build": "webpack --config webpack.config.js --config-name server",
-    "dev:server:watch": "nodemon --watch src/server --exec \"npm run dev:server:build && node dist/server/index.js\"",
+    "dev:server:watch": "webpack --config webpack.config.js --config-name server --watch",
+    "dev:server:run": "nodemon --watch dist/server --ext js --exec \"node dist/server/index.js\"",
     "dev:client": "webpack serve --config webpack.config.js --config-name client",
-    "dev": "run-s dev:server:build dev:parallel",
-    "dev:parallel": "run-p dev:server:watch dev:client",
+    "dev": "run-p dev:server:watch dev:server:run dev:client",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js"
   },
   "dependencies": {

@@ -19,5 +19,3 @@ reducer.inject(addSelectedApi);
 addAppMiddleware(addSelectedApi.middleware);
 
 export const { useAddSelectedOptionMutation } = addSelectedApi;
-
-// export const selectedSelector = getSelectedDataApi.endpoints.getSelectedOptions.select(undefined);

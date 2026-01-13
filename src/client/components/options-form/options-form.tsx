@@ -30,7 +30,6 @@ function OptionsForm({ options, onErrorMessage, onSuccesMessage }: OptionsFormPr
 
       onErrorMessage('')
       onSuccesMessage(message);
-      console.log("Ответ сервера:", message);
 
     } catch (err) {
       const {data: {message}} = err as ServerError;
