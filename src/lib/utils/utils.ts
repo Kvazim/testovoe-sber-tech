@@ -1,3 +1,4 @@
+import { BASE_URL } from "@lib/const/const";
 import { RefObject } from "react";
 
 export const getTargetForm = (form: string | undefined, ref: RefObject<HTMLDivElement | null>): HTMLFormElement | null | undefined => {
@@ -7,4 +8,8 @@ export const getTargetForm = (form: string | undefined, ref: RefObject<HTMLDivEl
   } else {
     return ref.current?.closest("form");
   }
+};
+
+export const getBaseUrl = () => {
+  return window.location.href.includes('localhost') ? BASE_URL : `${window.location.origin}:5000`
 };
