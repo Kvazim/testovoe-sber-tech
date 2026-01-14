@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: build
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: node dist/server/index.js
+  - type: web
+    runtime: static
+    name: app-frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist/client
